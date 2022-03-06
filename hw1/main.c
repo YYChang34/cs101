@@ -4,8 +4,8 @@
 
 int main(void) {
 	FILE* fp;
-	int n;
-	int num[6];
+	int n, i, j, k, temp;
+	int num[5][6];
 		
 	printf("歡迎光臨長庚樂透彩購買機台\n請問您要買幾組樂透彩 : ");
 	scanf("%d", &n);
@@ -21,34 +21,48 @@ int main(void) {
 	strftime(buffer, 80, "%a %b %d %X %Y", info);
 	fprintf(fp, "= %s =\n", buffer);
 //random number
-	for(int i = 1; i <= 5; i++) {
-		fprintf(fp, "[%d]: ", i);
-		num[5] = rand() % 10 + 1;
-		for(int j = 0; j < 5; j++) {
-			num[j] = rand() % 69 + 1;
-			if(i > n) {
-				fprintf(fp, "-- ");
-			} else if(num[j] < 10) {
-				fprintf(fp, "0%d ", num[j]);
-			} else {
-				fprintf(fp, "%d ", num[j]);
+	for(i = 0; i < 5; i++) {
+		for(j = 0; j < 5; j++) {
+			num[i][j] = rand() % 69 + 1;
+		}
+	//bubble sort
+		for(j = 0; j < 5; j++) {
+			for(k = 0; k < 4 - j; k++) {
+				if(num[i][k] > num[i][k + 1]) {
+					temp = num[i][k];
+					num[i][k] = num[i][k + 1];
+					num[i][k + 1] = temp;
+				}
 			}
-			if(num[5] == num[j]) {
-				num[5] = rand() % 10 + 1;
+		}
+	}
+	for(i = 0; i < 5; i++) {
+		fprintf(fp, "[%d]: ", i + 1);
+		num[i][5] = rand() % 10 + 1;
+		for(j = 0; j < 5; j++) {
+			if(i >= n) {
+				fprintf(fp, "-- ");
+			} else if(num[i][j] < 10) {
+				fprintf(fp, "0%d ", num[i][j]);
+			} else {
+				fprintf(fp, "%d ", num[i][j]);
+			}
+			if(num[i][5] == num[i][j]) {
+				num[i][5] = rand() % 10 + 1;
 			}
 		}
 //special number
-		if(i > n) {
+		if(i >= n) {
 			fprintf(fp, "--\n");
-		} else if(num[5] == 10) {
-			fprintf(fp, "%d\n", num[5]);
+		} else if(num[i][5] == 10) {
+			fprintf(fp, "%d\n", num[i][5]);
 		} else {
-			fprintf(fp, "0%d\n", num[5]);
+			fprintf(fp, "0%d\n", num[i][5]);
 		}
 	}
-	fprintf(fp, "========= csie@CGU =========");
-	fclose(fp);
 
+	fprintf(fp, "========= csie@CGU =========\n");
+	fclose(fp);
 	printf("已為您購買的 %d 組樂透彩組合輸出至 lotto.txt", n);
 
 	return 0;
