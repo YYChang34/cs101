@@ -27,7 +27,7 @@ int main(void) {
 	snprintf(buffer_title, sizeof(char) * 32, "lotto[0000%i].txt", count[0]);
 	fp = fopen(buffer_title, "wb");
 	fprintf(fp, "========= lotto649 =========\n");
-	fprintf(fp, "========+ No.0000%d +========\n", count[0]);
+	fprintf(fp, "========+ No.%05d +========\n", count[0]);
 
 //time
 	time_t curtime;
