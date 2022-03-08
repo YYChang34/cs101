@@ -10,10 +10,15 @@ int main(void) {
 	int count[] = {1};
 
 //read for execution times
-	fp_count = fopen("lotto_count.bin", "rb");
-	fread(count, sizeof(int), 1, fp_count);
-	fclose(fp_count);
-		
+	if((fp_count = fopen("lotto_count.bin", "rb")) != NULL) {
+		fread(count, sizeof(int), 1, fp_count);
+		fclose(fp_count);
+	} else {
+		fp_count = fopen("lotto_count.bin", "wb+");
+		fwrite(count, sizeof(int), 1, fp_count);
+		fclose(fp_count);
+	}
+
 	printf("歡迎光臨長庚樂透彩購買機台\n請問您要買幾組樂透彩 : ");
 	scanf("%d", &n);
 
@@ -75,13 +80,13 @@ int main(void) {
 
 	fprintf(fp, "========= csie@CGU =========\n");
 	fclose(fp);
+	printf("已為您購買的 %d 組樂透彩組合輸出至 lotto.txt\n", n);
+	
 //finish lotto.txt, so count for execution add 1
 	count[0]++;
 	fp_count = fopen("lotto_count.bin", "wb+");
-	fwrite(count, sizeof(count), 1, fp_count);
+	fwrite(count, sizeof(int), 1, fp_count);
 	fclose(fp_count);
-
-	printf("已為您購買的 %d 組樂透彩組合輸出至 lotto.txt\n", n);
 
 	return 0;
 }
