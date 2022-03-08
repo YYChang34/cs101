@@ -9,6 +9,7 @@ int main(void) {
 	int num[5][7];
 	int count[] = {1};
 
+//read for execution times
 	fp_count = fopen("lotto_count.bin", "rb");
 	fread(count, sizeof(int), 1, fp_count);
 	fclose(fp_count);
@@ -16,6 +17,7 @@ int main(void) {
 	printf("歡迎光臨長庚樂透彩購買機台\n請問您要買幾組樂透彩 : ");
 	scanf("%d", &n);
 
+//change file title
 	char buffer_title[32];
 	snprintf(buffer_title, sizeof(char) * 32, "lotto[0000%i].txt", count[0]);
 	fp = fopen(buffer_title, "wb");
@@ -73,10 +75,12 @@ int main(void) {
 
 	fprintf(fp, "========= csie@CGU =========\n");
 	fclose(fp);
+//finish lotto.txt, so count for execution add 1
 	count[0]++;
 	fp_count = fopen("lotto_count.bin", "wb+");
 	fwrite(count, sizeof(count), 1, fp_count);
 	fclose(fp_count);
+
 	printf("已為您購買的 %d 組樂透彩組合輸出至 lotto.txt\n", n);
 
 	return 0;
