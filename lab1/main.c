@@ -22,21 +22,21 @@ int main(void) {
 	}
 
 	printf("歡迎光臨長庚樂透彩購買機台\n");
+//operator_id
 	printf("請輸入操作人員ID:(0-5): ");
 	scanf("%d", &operator_id[0]);
-	fp_operator = fopen("lotto_count.bin", "wb+");
+	fp_operator = fopen("operator_id.bin", "wb+");
 	fwrite(operator_id, sizeof(int), 1, fp_operator);
 	fclose(fp_operator);
+
 	printf("請問您要買幾組樂透彩 : ");
 	scanf("%d", &n);
-
 //change file title
 	char buffer_title[32];
 	snprintf(buffer_title, sizeof(char) * 32, "lotto[0000%i].txt", count[0]);
 	fp = fopen(buffer_title, "wb");
 	fprintf(fp, "========= lotto649 =========\n");
 	fprintf(fp, "========+ No.%05d +========\n", count[0]);
-
 //time
 	time_t curtime;
 	struct tm *info;
@@ -85,9 +85,9 @@ int main(void) {
 			fprintf(fp, "0%d\n", num[i][6]);
 		}
 	}
-
+//operator_id output
 	fprintf(fp, "========* Op.");
-	fp_operator = fopen("lotto_count.bin", "rb");
+	fp_operator = fopen("operator_id.bin", "rb");
 	fread(operator_id, sizeof(int), 1, fp_operator);
 	fclose(fp_operator);
 	fprintf(fp, "%05d", operator_id[0]);
@@ -95,7 +95,6 @@ int main(void) {
 	fprintf(fp, "========= csie@CGU =========\n");
 	fclose(fp);
 	printf("已為您購買的 %d 組樂透彩組合輸出至 lotto.txt\n", n);
-	
 //finish lotto.txt, so count for execution add 1
 	count[0]++;
 	fp_count = fopen("lotto_count.bin", "wb+");
