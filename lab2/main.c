@@ -119,5 +119,7 @@ int main(void) {
 	strftime(record[0].lotto_time, 32, "%X", info);
 	fp_record = fopen("records.bin", "ab");
 	fwrite(record, sizeof(typelotto_record_t), 1, fp_record);
+	fclose(fp_record);
+	
 	return 0;
 }
