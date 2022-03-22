@@ -22,9 +22,9 @@ int main(void) {
 	fprintf(fp_record_w, "- Date ------ Num. ------ Receipt -\n");
 	lotto_record_t lotto_record[50];
 	only_record_t record[50];
-
+	
 	char line_ch;
-	int i = 0, count = 0;
+	int count = 0;
 	while((line_ch = fgetc(fp_record_r)) != EOF) {
 		count++;
 	}
@@ -33,12 +33,12 @@ int main(void) {
 
 	fp_record_r = fopen("records.bin", "r");
 	fread(lotto_record, sizeof(lotto_record_t), total_case, fp_record_r);
-	for(i = 0; i < total_case; i++) {
+	for(int i = 0; i < total_case; i++) {
 		strcpy(record[i].date, lotto_record[i].lotto_date);
 		record[i].receipt = lotto_record[i].lotto_receipt;
 	}
 	fclose(fp_record_r);
-	
+
 	int k, m, n;
 	int count_case[50], count_group[50], case_receipt[50];
 	char case_date[50][9];
@@ -60,7 +60,7 @@ int main(void) {
 				break;
 			}
 		}
-		if(k == i - 1) {
+		if(k == total_case - 1) {
 			break;
 		} else {
 			n = k - 1;
