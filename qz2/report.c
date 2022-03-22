@@ -67,9 +67,7 @@ int main(void) {
 		}
 	}
 	for(int j = 0; j < m; j++) {
-		fprintf(fp_record_w, "%s      %d/%d           %d\n", case_date[j], count_case[j],
-																count_group[j],
-																case_receipt[j]);
+		fprintf(fp_record_w, "%s      %d/%d           %d\n", case_date[j], count_case[j], count_group[j], case_receipt[j]);
 	}
 	fprintf(fp_record_w, "-----------------------------------\n");
 	int total_case_of_date = 0;
