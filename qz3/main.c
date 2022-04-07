@@ -9,18 +9,18 @@ void rec_dec(char *s) {
 }
 
 FILE* fp;
-void piller(int n, char A, char B, char C) {
+void count(int n, char A, char B, char C) {
 	if (n == 1) {
 		fprintf(fp, "Move disk %d form %c to %c\n", n, A, C);
 	} else {
-		piller(n - 1, A, C, B);
+		count(n - 1, A, C, B);
 		fprintf(fp, "Move disk %d form %c to %c\n", n, A, C);
-		piller(n - 1, B, A, C);
+		count(n - 1, B, A, C);
 	}
 }
 void hanoi_tower(int n) {
 	fp = fopen("hanoi.txt", "w+");
-	piller(n, 'A', 'B', 'C');
+	count(n, 'A', 'B', 'C');
 	fclose(fp);
 }
 
