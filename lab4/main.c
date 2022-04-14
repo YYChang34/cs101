@@ -3,8 +3,8 @@
 void find_num(int* p, int num) {
 	for(int i = 0; i < 10; i++) {
 		if(*(p + i) == num) {
-			printf("&n[%d]->%p, n[%d] = %d, ", i, p, i, *(p + i));
-			printf("p->%p, *p = %d\n", p, *(p + i));
+			printf("&n[%d]->%p, n[%d] = %d, ", i, (p + i), i, *(p + i));
+			printf("p->%p, *p = %d\n", (p + i), *(p + i));
 		}
 	}
 }
@@ -26,6 +26,7 @@ int main(void) {
 	int* ap[10];
 	int num = 9;
 	p = n;
+	printf("n[5] = %p\n", &n[5]);
 	int i, j;
 	for(i = 0, j = 0; i < 10; i++) {
 		ap[i] = &n[j++];
