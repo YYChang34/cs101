@@ -9,15 +9,20 @@ void find_num(int* p, int num) {
 	}
 }
 void sort(int** ap) {
-	for(int i = 0; i < 10; i++) {
-		for(int j = i + 1; j < 10; j++) {
+	int i, j;
+	for(i = 0; i < 10; i++) {
+		int a = i;
+		for(j = i + 1; j < 10; j++) {
 			if(*ap[i] > *ap[j]) {
 				int* temp = ap[i];
 				ap[i] = ap[j];
 				ap[j] = temp;
+				int temp_num = a;
+				a = j;
+				j = temp_num;
 			}
 		}
-		printf("&n[%d]->%p, n[%d] = %d, ", i, ap[i], i, *(ap[i]));
+		printf("&n[%d]->%p, n[%d] = %d, ", a, ap[a], a, *(ap[i]));
 		printf("ap[%d]->%p, *ap[%d] = %d\n", i, ap[i], i, *(ap[i]));
 	}
 }
