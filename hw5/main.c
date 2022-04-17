@@ -24,21 +24,30 @@ int *my_calloc(int n, int size) {
 	}
 	
 	if (start_address == -1) {
-		print_g_mem_usage();
+		for (int i = 0; i < 10; i++) {
+			printf("%d", mms.g_mem_usage[i]);
+		}
+		printf(" <- Out of space\n");
 		return NULL;
 	} else {
 		for (int i = 0; i < n*size; i++) {
 			mms.g_mem_usage[start_address + i] = 1;
 		}
 		mms.num_of_allocated_space[start_address] = n*size;
-		print_g_mem_usage();
+		for (int i = 0; i < 10; i++) {
+			printf("%d", mms.g_mem_usage[i]);
+		}
+		printf("\n");
 		return &g_mem[start_address];
 	}
 
 }
 void my_free(int *p) {
 	if (p == NULL) {
-		print_g_mem_usage();
+		for (int i = 0; i < 10; i++) {
+			printf("%d", mms.g_mem_usage[i]);
+		}
+		printf("\n");
 		return;
 	}
 
@@ -48,9 +57,6 @@ void my_free(int *p) {
 	}
 	mms.num_of_allocated_space[start_address] = 0;
 
-	print_g_mem_usage();
-}
-void print_g_mem_usage() {
 	for (int i = 0; i < 10; i++) {
 		printf("%d", mms.g_mem_usage[i]);
 	}
