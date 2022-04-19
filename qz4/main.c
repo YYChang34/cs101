@@ -42,7 +42,7 @@ int main(void) {
 	n = 1;
 	m = 2;
 	swap(&n, &m);
-	printf("after swap, n=%d, m=%d\n", n, m);
+	printf("after swap, n = %d, m = %d\n", n, m);
 
 	printf("No.2 -------------------\n");
 	int size = 10;
