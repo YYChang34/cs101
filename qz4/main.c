@@ -41,7 +41,7 @@ int main(void) {
 	n = 1;
 	m = 2;
 	swap(&n, &m);
-	printf("n = %d, m = %d\n", n, m);
+	printf("after swap, n=%d, m=%d\n", n, m);
 
 	int size = 10;
 	int sourse[10] = {0, 9, 8, 7, 6, 5, 4, 3, 2, 1};
