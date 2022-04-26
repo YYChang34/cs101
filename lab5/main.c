@@ -60,16 +60,17 @@ int main(void) {
 	p.get_int_array_list = get_int_array;
 	p.set_value_list = set_value;
 	p.print_array_list = print_array;
-	int* ptr = p.get_int_array_list(n);
+	int* iptr = p.get_int_array_list(n);
 	for(int i = 0; i < n; i++) {
-		p.set_value_list(ip + i, i + 1);
+		p.set_value_list(iptr + i, i + 1);
 	}
-	p.print_array_list(ip, n);
+	p.print_array_list(iptr, n);
 	printf("No.3 -------------------\n");
 	char a[] = "IU!IU!";
 	char b[] = "@CGU";
 	printf("add_str_func = %s\n", add_str_func(a, b, func));
 	free(ip);
+	free(iptr);
 	free(ptr);
 	return 0;
 }
