@@ -57,14 +57,15 @@ int main(void) {
 	print_array(ip, n);
 	printf("No.2 -------------------\n");
 	array_list_t p;
+	p.n = n;
 	p.get_int_array_list = get_int_array;
 	p.set_value_list = set_value;
 	p.print_array_list = print_array;
-	int* iptr = p.get_int_array_list(n);
-	for(int i = 0; i < n; i++) {
+	int* iptr = p.get_int_array_list(p.n);
+	for(int i = 0; i < p.n; i++) {
 		p.set_value_list(iptr + i, i + 1);
 	}
-	p.print_array_list(iptr, n);
+	p.print_array_list(iptr, p.n);
 	printf("No.3 -------------------\n");
 	char a[] = "IU!IU!";
 	char b[] = "@CGU";
