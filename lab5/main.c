@@ -25,12 +25,13 @@ void print_array(int* p, int n) {
 	}
 }
 
+char* ptr;
 char* func(char a[], char b[]) {
 	int len_a = 0;
 	int len_b = 0;
 	while(a[len_a++]);
 	while(b[len_b++]);
-	char* ptr = (char*)calloc(len_a + len_b - 1, sizeof(char));
+	ptr = (char*)calloc(len_a + len_b - 1, sizeof(char));
 	for(int i = 0; i < len_a - 1; i++) {
 		ptr[i] = a[i];
 	}
@@ -68,5 +69,7 @@ int main(void) {
 	char a[] = "IU!IU!";
 	char b[] = "@CGU";
 	printf("add_str_func = %s\n", add_str_func(a, b, func));
+	free(ip);
+	free(ptr);
 	return 0;
 }
