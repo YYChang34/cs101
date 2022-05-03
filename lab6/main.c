@@ -24,8 +24,8 @@ int _power(int x, int y) {
     }
     return sum;
     //遞迴
-    // if(y == 0) {
-    //     return 1;
+    // if(y == 1) {
+    //     return x;
     // } else {
     //    return x * (_power(x, y - 1));
     // }
