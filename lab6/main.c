@@ -33,10 +33,12 @@ int main(void) {
     operation[3] = _div;
     operation[4] = _power;
 
+    printf("Enter two integer: ");
     scanf("%d%d", &x, &y);
-    //0->+, 1->-, 2->*, 3->/, 4->^
+
+    printf("Enter 0:+, 1:-, 2:*, 3:/, 4:^ ");
     scanf("%d", &choice);
-    printf("%d\n", operation[choice](x, y));
+    printf("%d", operation[choice](x, y));
 
     return 0;
 }
