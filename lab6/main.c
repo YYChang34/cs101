@@ -17,11 +17,18 @@ int _div(int x, int y) {
 }
 
 int _power(int x, int y) {
+    //迴圈
     int sum = 1;
     for(int i = 0; i < y; i++) {
         sum *= x;
     }
     return sum;
+    //遞迴
+    // if(y == 0) {
+    //     return 1;
+    // } else {
+    //    return x * (_power(x, y - 1));
+    // }
 }
 
 int main(void) {
