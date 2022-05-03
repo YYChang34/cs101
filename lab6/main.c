@@ -23,7 +23,7 @@ int _power(int x, int y) {
         sum *= x;
     }
     return sum;
-    //遞迴
+    //遞迴(不考慮0次方)
     // if(y == 1) {
     //     return x;
     // } else {
