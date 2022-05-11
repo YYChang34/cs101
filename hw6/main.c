@@ -14,19 +14,19 @@ node_t* allocate_node(int data){
 	return next_node;
 }
 
-void show_list(node_t* list) {
-	while(list != NULL) {
-		printf("[%d]->", list->data);
-		list = list->next;
+void show_list(node_t* head) {
+	while(head != NULL) {
+		printf("[%d]->", head->data);
+		head = head->next;
 	}
 	printf("null\n");
 }
 
-node_t* append_node(node_t* list, int new_data) {
-	if(list == NULL) {
+node_t* append_node(node_t* head, int new_data) {
+	if(head == NULL) {
 		return allocate_node(new_data);
 	}
-	node_t* head = list;
+	node_t* list = head;
 	//find tail
 	while(list->next != NULL) {
 		list = list->next;
@@ -35,23 +35,52 @@ node_t* append_node(node_t* list, int new_data) {
 	return head;
 }
 
-void free_all_node(node_t* list) {
-	while(list != NULL) {
-		printf("free([%d])->", list->data);
-		list = list->next;
+void free_all_node(node_t* head) {
+	node_t* p;
+	while(head != NULL) {
+		p = head;
+		head = head->next;
+		printf("free([%d])->", p->data);
+		free(p);
 	}
 	printf("null\n");
 }
+
+node_t* add_node(node_t* head, int new_data) {
+	node_t* new_head = allocate_node(new_data);
+	new_head->next = head;
+	return new_head;
+
+}
+
+//add a dummy_head to pretend the new head in order to skip the situation of deleted head
+node_t* del_node(node_t* head, int n)  {
+	node_t* dummy_head = allocate_node(0);
+	dummy_head->next = head;
+
+	int count = 0;
+	node_t* p = dummy_head;
+	while(count != n) {
+		p = p->next;
+		count++;
+	}
+	node_t* delete_node = p->next;
+	p->next = delete_node->next;
+	free(delete_node);
+	
+	return dummy_head->next;
+}
+
 
 int main(void) {
 	node_t* head = NULL;
 	head = append_node(head, 0);
 	show_list(head);
-	head = append_node(head, 11);
+	head = append_node(head, 1);
 	show_list(head);
-	head = append_node(head, 222);
+	head = add_node(head, -1);
 	show_list(head);
-	head = append_node(head, 3333);
+	del_node(head, 1);
 	show_list(head);
 	free_all_node(head);
 	return 0;
