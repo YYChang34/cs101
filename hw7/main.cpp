@@ -1,91 +1,81 @@
 #include <iostream>
+#include <cstdlib>
 using namespace std;
 
 class MMmanger {
 	private:
-		int num_of_space;
-		int *num_of_allocated_space;
-		int *g_mem_usage;
-		int *g_mem;
+		int num_of_space, allocated_size;
+		int** calloced_p;
+		int* g_mm;
 	public:
 		MMmanger(int num) {
 			num_of_space = num;
-			g_mem = new int[num_of_space]();
-			num_of_allocated_space = new int[num_of_space]();
-			g_mem_usage = new int[num_of_space]();
+			calloced_p = (int**)malloc(num_of_space * sizeof(int*));
+			for(int i = 0; i < num_of_space; i++) {
+		    	calloced_p[i] = 0;
+		    }
+			g_mm = (int*)malloc(num_of_space * sizeof(int));
 		}
-		int *calloc_MM(int size) {
-			int start_address = -1, num_of_non_allocated_space = 0;
-			for (int i = 0; i < num_of_space; i++) {
-				int j = i;
-				while (g_mem_usage[j] == 0 && num_of_non_allocated_space < size && j < num_of_space) {
+
+		int get_MMCapacity() {
+			int num_of_non_allocated_space = 0;
+			for(int i = 0; i < num_of_space; i++) {
+				if(!calloced_p[i]) {
 					num_of_non_allocated_space++;
-					j++;
 				}
-				if (num_of_non_allocated_space == size) {
-					start_address = i;
-					break;
-				}
-				i = j;
 			}
-			if (start_address == -1) {
-				printf("Capacity:%d - ", num_of_non_allocated_space);
-				for (int i = 0; i < num_of_space; i++) {
-					printf("%d", g_mem_usage[i]);
-				}
-				printf(" <- Out of space: demand %d\n", size);
-				return NULL;
-			} else {
-				int num_of_total_non_allocated_space = 0;
-				for (int i = 0; i < size; i++) {
-					g_mem_usage[start_address + i] = 1;
-				}
-				for (int i = 0; i < num_of_space; i++) {
-					if(g_mem_usage[i] == 0) {
-						num_of_total_non_allocated_space++;
-					}
-				}
-				num_of_allocated_space[start_address] = size;
-				printf("Capacity:%d - ", num_of_total_non_allocated_space);
-				for (int i = 0; i < num_of_space; i++) {
-					printf("%d", g_mem_usage[i]);
-				}
-				printf("\n");
-				return &g_mem[start_address];
-			}
+			return num_of_non_allocated_space;
 		}
-		void free_MM(int *p) {
-			int num_of_total_non_allocated_space = 0;
-			if (p == NULL) {
-				for (int i = 0; i < num_of_space; i++) {
-					if(g_mem_usage[i] == 0) {
-						num_of_total_non_allocated_space++;
-					}
-				}
-				printf("Capacity:%d - ", num_of_total_non_allocated_space);
-				for (int i = 0; i < num_of_space; i++) {
-					printf("%d", g_mem_usage[i]);
-				}
-				printf("\n");
-				return;
-			}
 
-			int start_address = p - g_mem;
-			for (int i = 0; i < num_of_allocated_space[start_address]; i++) {
-				g_mem_usage[start_address + i] = 0;
-			}
-			num_of_allocated_space[start_address] = 0;
+		void print_calloc_array(int flag, int size) {
+			cout << "Capacity:" << get_MMCapacity() << " - ";
+			for(int i = 0; i < num_of_space; i++) {
+		        if(calloced_p[i]) {
+		        	cout << "1";
+		        } else {
+		        	cout << "0";
+		        }
+		    }
+		    if(!flag) {
+		    	cout << " <- Out of space: demand " << size;
+		    }
+		    cout << endl;
+		}
 
-			for (int i = 0; i < num_of_space; i++) {
-				if(g_mem_usage[i] == 0) {
-					num_of_total_non_allocated_space++;
-				}
-			}
-			printf("Capacity:%d - ", num_of_total_non_allocated_space);
-			for (int i = 0; i < num_of_space; i++) {
-				printf("%d", g_mem_usage[i]);
-			}
-			printf("\n");
+		int* calloc_MM(int size) {
+			int av_size = 0;
+		    int index;
+		    for(index = 0; index < num_of_space; index++) {
+		        if(!calloced_p[index]) {
+		            av_size++;
+		        } else {
+		            av_size = 0;
+		        }
+		        if(av_size == size) {
+		            index -= size - 1;
+		            break;
+		        }
+		    }
+		    
+		    if(av_size < size) {
+		        print_calloc_array(0, size);
+		        return NULL;
+		    }
+		    for(int i = 0; i < size; i++) {
+		        calloced_p[index + i] = &g_mm[index];
+		    }
+		    print_calloc_array(1, 0);
+		    return &g_mm[index];
+		}
+
+		void free_MM(int* p) {
+			int i;
+			for(i = 0; i < num_of_space; i++) {
+		        if(calloced_p[i] == p) {
+		            calloced_p[i] = NULL;
+		        }
+		    }
+		    print_calloc_array(1, 0);
 		}
 };
 
