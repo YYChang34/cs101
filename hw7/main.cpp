@@ -4,7 +4,7 @@ using namespace std;
 
 class MMmanger {
 	private:
-		int num_of_space, allocated_size;
+		int num_of_space;
 		int** calloced_p;
 		int* g_mm;
 	public:
