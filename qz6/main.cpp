@@ -2,10 +2,11 @@
 using namespace std;
 
 class Clock {
-	public:
+	protected:
 		int hr;
 		int min;
 		int sec;
+	public:
 		string meridian;
 		Clock(int h, int m, int s, string mer) {
 			hr = h;
@@ -52,7 +53,7 @@ class MilitaryClock : Clock {
 
 int main(void) {
 	Clock cc(10, 25, 43, "AM");
-	StandardClock sc(10, 10, 43, "AM");
+	StandardClock sc(10, 25, 43, "AM");
 	MilitaryClock mc(10, 25, 43, "PM");
 	cc.display();
 	sc.display();
