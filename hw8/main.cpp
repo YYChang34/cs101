@@ -34,6 +34,7 @@ class LinkedList {
 			Node* newNode = new Node(new_data);
 			if(head == NULL) {
 				head = newNode;
+				cout << "["<< head->data << "]->null" << endl;
 				return;
 			}
 			Node* list = head;
@@ -42,10 +43,10 @@ class LinkedList {
 			}
 			list->next = newNode;
 
-			while(head != NULL) {
-
-				cout << "["<< head->data << "]->";
-				head = head->next;
+			Node* current = head;
+			while(current != NULL) {
+				cout << "["<< current->data << "]->";
+				current = current->next;
 			}
 			cout << "null" << endl;
 		}
@@ -63,6 +64,13 @@ class LinkedList {
 			Node* delete_node = p->next;
 			p->next = delete_node->next;
 			delete delete_node;
+			
+			Node* current = head;
+			while(current != NULL) {
+				cout << "["<< current->data << "]->";
+				current = current->next;
+			}
+			cout << "null" << endl;
 		}
 
 };
