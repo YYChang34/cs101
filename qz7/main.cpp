@@ -9,7 +9,6 @@ class ReadClass {
 	public:
 		ifstream in;
 		string str;
-		string str_last;
 		int num_of_class;
 
 	void showClass() {
