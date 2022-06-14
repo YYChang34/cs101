@@ -25,8 +25,8 @@ class ReadClass {
 				cout << endl;
 			}
 		}
-		in.close();
 		cout << num_of_class << " class in main.cpp" << endl;
+		in.close();
 	}
 };
 
